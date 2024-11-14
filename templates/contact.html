@@ -1,0 +1,126 @@
+<html lang="en">
+<head>
+<title>Contact</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<style>
+    :root {
+  --primary-color: #b9ff66;
+  --secondary-color: #191a23;
+  --body-color: #f3f3f3;
+}
+
+.contact-us .contact-wrapper {
+  border-radius: 25px;
+  padding: 40px 60px;
+  background-color: var(--body-color);
+}
+
+.contact-us .contact-wrapper input,
+.contact-us .contact-wrapper textarea {
+  background-color: white;
+  border: 1px solid var(--secondary-color);
+  border-radius: 10px;
+  padding: 6px 12px;
+}
+
+.contact-us .contact-wrapper input:focus,
+.contact-us .contact-wrapper textarea:focus{
+  box-shadow: none;
+}
+
+.contact-bg {
+  position: absolute;
+  right: -190px;
+  width: 400px;
+}
+
+input[type="radio"] {
+  accent-color: var(--primary-color);
+}
+</style>
+<body>
+    <section class="contact-us my-5">
+        <div class="container">
+          <div class="row">
+            <div class="row d-flex flex-nowrap flex-row">
+              <div class="heading d-flex align-items-center">
+                <h2>Contact Us</h2>
+                <p class="ps-4">Connect with Us: Let's Discuss Your <br> Digital Marketing Needs</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-wrapper position-relative overflow-hidden">
+            <div class="row">
+              <div class="col-lg-8">
+                <form action="" method="POST" id="myForm">
+                    {% csrf_token %}
+                    <div class="d-flex">
+                      <div class="d-flex align-items-center">
+                        <input type="radio" id="radio1" name="greeting" checked>
+                        <label for="radio1" class="ms-2 mb-0">Say Hi</label>
+                      </div>
+                      <div class="ms-3 d-flex align-items-center">
+                        <input type="radio" id="radio2" name="greeting">
+                        <label for="radio2" class="ms-2 mb-0">Say Hello</label>
+                      </div>
+                    </div>
+                  
+                    <label class="mt-3" for="name">Name</label> <br>
+                    <input class="form-control" type="text" id="name" name="name" placeholder="Name" required>
+                  
+                    <label class="mt-3" for="email">Email</label> <br>
+                    <input class="form-control" type="email" id="email" name="email" placeholder="Email" required>
+                  
+                    <label class="mt-3" for="subject">Subject</label> <br>
+                    <input class="form-control" type="text" id="subject" name="subject" placeholder="Subject" required>
+                  
+                    <label class="mt-3" for="message">Message</label> <br>
+                    <textarea class="form-control" id="message" name="message" placeholder="Message" required></textarea>
+                  
+                    <button class="form-control mt-3 bg-dark text-white" type="submit">Send Message</button>
+                  </form>
+                  
+              </div>
+              <img class="contact-bg d-none d-lg-block" src="https://codewithshabbir.github.io/Positivus/assets/images/contact-bg.png" alt="">
+      
+            </div>
+          </div>
+        </div>
+        <script>
+            // Handle form submission with SweetAlert
+            document.getElementById('myForm').addEventListener('submit', function(event) {
+              event.preventDefault(); // Prevent the default form submission
+          
+              // Trigger SweetAlert
+              Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to submit this form?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, submit it!',
+                cancelButtonText: 'No, cancel'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // If confirmed, submit the form
+                  Swal.fire(
+                    'Submitted!',
+                    'Your form has been submitted.',
+                    'success'
+                  ).then(() => {
+                    // After the success alert, submit the form
+                    document.getElementById('myForm').submit();
+                  });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                  Swal.fire(
+                    'Cancelled',
+                    'Your form was not submitted.',
+                    'error'
+                  );
+                }
+              });
+            });
+          </script>
+      </section>
+</body>
+</html>
